@@ -33,9 +33,9 @@ class GulimallThirdPartyApplicationTests {
 //        OSS ossClient = new OSSClientBuilder().build(endpoint, accessKeyId, accessKeySecret);
 
         // 上传文件流。
-        InputStream inputStream = new FileInputStream("C:\\Users\\lfy\\Pictures\\Camera Roll\\59f2db04139a2.jpg");
+        InputStream inputStream = new FileInputStream("E:\\桌面\\简历\\照片.JPEG");
 
-        ossClient.putObject("gulimall-hello", "hahaha.jpg", inputStream);
+        ossClient.putObject("gulimall-38756175", "hahaha.jpg", inputStream);
 
         // 关闭OSSClient。
         ossClient.shutdown();

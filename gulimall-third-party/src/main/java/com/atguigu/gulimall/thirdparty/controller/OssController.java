@@ -29,14 +29,14 @@ public class OssController {
     @Value("${spring.cloud.alicloud.access-key}")
     private String accessId;
 
+    /**
+     * 用户要上传图片时，向后端请求服务端签名，然后直接带着签名向oss上传图片，这样可以减小服务器的压力
+     * @return
+     */
 
     @RequestMapping("/oss/policy")
     public R policy() {
-
-
-
         //https://gulimall-hello.oss-cn-beijing.aliyuncs.com/hahaha.jpg
-
         String host = "https://" + bucket + "." + endpoint; // host的格式为 bucketname.endpoint
         // callbackUrl为 上传回调服务器的URL，请将下面的IP和Port配置为您自己的真实信息。
 //        String callbackUrl = "http://88.88.88.88:8888";
@@ -66,12 +66,11 @@ public class OssController {
             respMap.put("expire", String.valueOf(expireEndTime / 1000));
             // respMap.put("expire", formatISO8601Date(expiration));
 
-
         } catch (Exception e) {
             // Assert.fail(e.getMessage());
             System.out.println(e.getMessage());
         }
-
+        //返回签名
         return R.ok().put("data",respMap);
     }
 }
