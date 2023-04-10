@@ -36,7 +36,6 @@ import javax.validation.Valid;
 public class BrandController {
     @Autowired
     private BrandService brandService;
-
     /**
      * 列表
      */
@@ -44,10 +43,8 @@ public class BrandController {
     //@RequiresPermissions("product:brand:list")
     public R list(@RequestParam Map<String, Object> params){
         PageUtils page = brandService.queryPage(params);
-
         return R.ok().put("page", page);
     }
-
 
     /**
      * 信息
@@ -56,7 +53,6 @@ public class BrandController {
     //@RequiresPermissions("product:brand:info")
     public R info(@PathVariable("brandId") Long brandId){
 		BrandEntity brand = brandService.getById(brandId);
-
         return R.ok().put("brand", brand);
     }
 
@@ -76,15 +72,11 @@ public class BrandController {
 //                String field = item.getField();
 //                map.put(field,message);
 //            });
-//
 //            return R.error(400,"提交的数据不合法").put("data",map);
 //        }else {
 //
 //        }
-
         brandService.save(brand);
-
-
         return R.ok();
     }
 
@@ -95,7 +87,6 @@ public class BrandController {
     //@RequiresPermissions("product:brand:update")
     public R update(@Validated(UpdateGroup.class) @RequestBody BrandEntity brand){
 		brandService.updateDetail(brand);
-
         return R.ok();
     }
     /**
@@ -105,10 +96,8 @@ public class BrandController {
     //@RequiresPermissions("product:brand:update")
     public R updateStatus(@Validated(UpdateStatusGroup.class) @RequestBody BrandEntity brand){
         brandService.updateById(brand);
-
         return R.ok();
     }
-
     /**
      * 删除
      */
@@ -116,8 +105,6 @@ public class BrandController {
     //@RequiresPermissions("product:brand:delete")
     public R delete(@RequestBody Long[] brandIds){
 		brandService.removeByIds(Arrays.asList(brandIds));
-
         return R.ok();
     }
-
 }

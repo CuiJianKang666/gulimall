@@ -16,7 +16,7 @@ import javax.validation.constraints.*;
 
 /**
  * 品牌
- * 
+ *
  * @author leifengyang
  * @email leifengyang@gmail.com
  * @date 2019-10-01 21:08:49
@@ -67,5 +67,4 @@ public class BrandEntity implements Serializable {
 	@NotNull(groups={AddGroup.class})
 	@Min(value = 0,message = "排序必须大于等于0",groups={AddGroup.class,UpdateGroup.class})
 	private Integer sort;
-
 }
