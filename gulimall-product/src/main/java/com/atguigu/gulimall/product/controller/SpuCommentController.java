@@ -41,7 +41,6 @@ public class SpuCommentController {
         return R.ok().put("page", page);
     }
 
-
     /**
      * 信息
      */
@@ -49,7 +48,6 @@ public class SpuCommentController {
     //@RequiresPermissions("product:spucomment:info")
     public R info(@PathVariable("id") Long id){
 		SpuCommentEntity spuComment = spuCommentService.getById(id);
-
         return R.ok().put("spuComment", spuComment);
     }
 
@@ -60,7 +58,6 @@ public class SpuCommentController {
     //@RequiresPermissions("product:spucomment:save")
     public R save(@RequestBody SpuCommentEntity spuComment){
 		spuCommentService.save(spuComment);
-
         return R.ok();
     }
 
@@ -71,7 +68,6 @@ public class SpuCommentController {
     //@RequiresPermissions("product:spucomment:update")
     public R update(@RequestBody SpuCommentEntity spuComment){
 		spuCommentService.updateById(spuComment);
-
         return R.ok();
     }
 
@@ -82,7 +78,6 @@ public class SpuCommentController {
     //@RequiresPermissions("product:spucomment:delete")
     public R delete(@RequestBody Long[] ids){
 		spuCommentService.removeByIds(Arrays.asList(ids));
-
         return R.ok();
     }
 

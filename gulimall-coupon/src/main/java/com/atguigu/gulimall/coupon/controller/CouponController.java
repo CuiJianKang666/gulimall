@@ -18,7 +18,6 @@ import com.atguigu.common.utils.PageUtils;
 import com.atguigu.common.utils.R;
 
 
-
 /**
  * 优惠券信息
  *
@@ -33,7 +32,6 @@ public class CouponController {
     @Autowired
     private CouponService couponService;
 
-
     @Value("${coupon.user.name}")
     private String name;
     @Value("${coupon.user.age}")
@@ -41,7 +39,6 @@ public class CouponController {
 
     @RequestMapping("/test")
     public R test(){
-
         return R.ok().put("name",name).put("age",age);
     }
 
@@ -59,10 +56,8 @@ public class CouponController {
     //@RequiresPermissions("coupon:coupon:list")
     public R list(@RequestParam Map<String, Object> params){
         PageUtils page = couponService.queryPage(params);
-
         return R.ok().put("page", page);
     }
-
 
     /**
      * 信息
@@ -71,7 +66,6 @@ public class CouponController {
     //@RequiresPermissions("coupon:coupon:info")
     public R info(@PathVariable("id") Long id){
 		CouponEntity coupon = couponService.getById(id);
-
         return R.ok().put("coupon", coupon);
     }
 
@@ -82,7 +76,6 @@ public class CouponController {
     //@RequiresPermissions("coupon:coupon:save")
     public R save(@RequestBody CouponEntity coupon){
 		couponService.save(coupon);
-
         return R.ok();
     }
 
@@ -93,7 +86,6 @@ public class CouponController {
     //@RequiresPermissions("coupon:coupon:update")
     public R update(@RequestBody CouponEntity coupon){
 		couponService.updateById(coupon);
-
         return R.ok();
     }
 
@@ -104,8 +96,6 @@ public class CouponController {
     //@RequiresPermissions("coupon:coupon:delete")
     public R delete(@RequestBody Long[] ids){
 		couponService.removeByIds(Arrays.asList(ids));
-
         return R.ok();
     }
-
 }

@@ -10,7 +10,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableTransactionManagement //开启事务
 @MapperScan("com.atguigu.gulimall.product.dao")
 public class MyBatisConfig {
-
     //引入分页插件
     @Bean
     public PaginationInterceptor paginationInterceptor() {

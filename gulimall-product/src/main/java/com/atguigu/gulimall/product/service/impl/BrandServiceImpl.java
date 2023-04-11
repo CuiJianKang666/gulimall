@@ -31,13 +31,11 @@ public class BrandServiceImpl extends ServiceImpl<BrandDao, BrandEntity> impleme
         if(!StringUtils.isEmpty(key)){
             queryWrapper.eq("brand_id",key).or().like("name",key);
         }
-
         IPage<BrandEntity> page = this.page(
                 new Query<BrandEntity>().getPage(params),
                 queryWrapper
 
         );
-
         return new PageUtils(page);
     }
 

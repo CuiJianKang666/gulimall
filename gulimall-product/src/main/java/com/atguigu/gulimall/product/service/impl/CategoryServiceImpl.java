@@ -34,7 +34,6 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
                 new Query<CategoryEntity>().getPage(params),
                 new QueryWrapper<CategoryEntity>()
         );
-
         return new PageUtils(page);
     }
 
@@ -70,10 +69,8 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
     public Long[] findCatelogPath(Long catelogId) {
         List<Long> paths = new ArrayList<>();
         List<Long> parentPath = findParentPath(catelogId, paths);
-
         Collections.reverse(parentPath);
-
-        return parentPath.toArray(new Long[parentPath.size()]);
+        return parentPath.toArray(new Long[0]);
     }
 
     /**
@@ -99,8 +96,6 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
         return paths;
 
     }
-
-
     //递归查找所有菜单的子菜单
     private List<CategoryEntity> getChildrens(CategoryEntity root, List<CategoryEntity> all) {
 

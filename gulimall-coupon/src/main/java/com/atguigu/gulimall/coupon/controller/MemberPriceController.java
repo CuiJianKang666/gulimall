@@ -37,7 +37,6 @@ public class MemberPriceController {
     //@RequiresPermissions("coupon:memberprice:list")
     public R list(@RequestParam Map<String, Object> params){
         PageUtils page = memberPriceService.queryPage(params);
-
         return R.ok().put("page", page);
     }
 
