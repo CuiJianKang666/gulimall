@@ -16,7 +16,7 @@ import lombok.Data;
 
 /**
  * 商品三级分类
- * 
+ *
  * @author leifengyang
  * @email leifengyang@gmail.com
  * @date 2019-10-01 21:08:48
@@ -26,7 +26,6 @@ import lombok.Data;
 @TableName("pms_category")
 public class CategoryEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
-
 	/**
 	 * 分类id
 	 */
@@ -69,7 +68,5 @@ public class CategoryEntity implements Serializable {
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@TableField(exist=false)
 	private List<CategoryEntity> children;
-
-
 
 }
