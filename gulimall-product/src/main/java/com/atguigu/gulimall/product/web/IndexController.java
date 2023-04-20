@@ -37,14 +37,11 @@ public class IndexController {
 
     @GetMapping(value = {"/","index.html"})
     private String indexPage(Model model) {
-
         //1、查出所有的一级分类
         List<CategoryEntity> categoryEntities = categoryService.getLevel1Categorys();
         model.addAttribute("categories",categoryEntities);
-
         return "index";
     }
-
 
     //index/json/catalog.json
     @GetMapping(value = "/index/catalog.json")
@@ -52,9 +49,11 @@ public class IndexController {
     public Map<String, List<Catelog2Vo>> getCatalogJson() {
         return categoryService.getCatalogJson();
     }
-//    @ResponseBody
-//    @GetMapping(value = "/hello")
-//    public String hello() {
+    @ResponseBody
+    @GetMapping(value = "/hello")
+    public String hello() {
+        return "hello";
+    }
 //
 //        //1、获取一把锁，只要锁的名字一样，就是同一把锁
 //        RLock myLock = redisson.getLock("my-lock");

@@ -10,6 +10,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.io.FileInputStream;
@@ -37,6 +38,9 @@ public class GulimallProductApplicationTests {
     @Autowired
     CategoryService categoryService;
 
+    @Autowired
+    StringRedisTemplate stringRedisTemplate;
+
     @Test
     public void testFindPath(){
         Long[] catelogPath = categoryService.findCatelogPath(225L);
@@ -50,8 +54,6 @@ public class GulimallProductApplicationTests {
         BrandEntity brandEntity = new BrandEntity();
         brandEntity.setBrandId(1L);
         brandEntity.setDescript("华为");
-
-
         brandEntity.setName("华为");
         brandService.save(brandEntity);
         System.out.println("保存成功....");
