@@ -31,7 +31,6 @@ public class SpuInfoController {
         spuInfoService.up(spuId);
         return R.ok();
     }
-
     /**
      * 列表
      */
