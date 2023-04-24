@@ -7,12 +7,6 @@ import org.elasticsearch.client.RestHighLevelClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-/**
- * @Description:
- * @Created: with IntelliJ IDEA.
- * @author: 夏沫止水
- * @createTime: 2020-06-04 16:46
- **/
 
 @Configuration
 public class GulimallElasticSearchConfig {
