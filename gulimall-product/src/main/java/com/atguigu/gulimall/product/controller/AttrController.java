@@ -69,7 +69,7 @@ public class AttrController {
     }
 
     /**
-     * 信息
+     * 获取属性信息
      */
     @RequestMapping("/info/{attrId}")
     //@RequiresPermissions("product:attr:info")

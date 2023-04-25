@@ -51,7 +51,7 @@ spring:
         - id: gulimall_host_route
           uri: lb://gulimall-product
           predicates:
-            - Host=gulimall.com
+            - Host=gulimall.com,item.gulimall.com
 
         #search.gulimall.com域名下的请求都转发到search服务
         - id: gulimall_search_route
