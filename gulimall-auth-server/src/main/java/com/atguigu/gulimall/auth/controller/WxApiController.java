@@ -18,12 +18,7 @@ import java.net.URLEncoder;
 
 import static com.atguigu.common.constant.AuthServerConstant.LOGIN_USER;
 
-/**
- * @Description:
- * @Created: with IntelliJ IDEA.
- * @author: 夏沫止水
- * @createTime: 2020-08-10 20:28
- **/
+
 
 @Slf4j
 @Controller
@@ -130,5 +125,4 @@ public class WxApiController {
         //重定向到请求微信地址
         return "redirect:" + url;
     }
-
 }

@@ -92,7 +92,6 @@ public class LoginController {
     @PostMapping(value = "/register")
     public String register(@Valid UserRegisterVo vos, BindingResult result,
                            RedirectAttributes attributes) {
-
         //如果有错误回到注册页面
         if (result.hasErrors()) {
             Map<String, String> errors = result.getFieldErrors().stream().collect(Collectors.toMap(FieldError::getField, FieldError::getDefaultMessage));
@@ -124,8 +123,6 @@ public class LoginController {
                     attributes.addFlashAttribute("errors",errors);
                     return "redirect:http://auth.gulimall.com/reg.html";
                 }
-
-
             } else {
                 //效验出错回到注册页面
                 Map<String, String> errors = new HashMap<>();
@@ -150,7 +147,7 @@ public class LoginController {
         Object attribute = session.getAttribute(LOGIN_USER);
         //如果用户没登录那就跳转到登录页面
         if (attribute == null) {
-            return "index";
+            return "login";
         } else {
             return "redirect:http://gulimall.com";
         }

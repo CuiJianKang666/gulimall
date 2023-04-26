@@ -41,7 +41,6 @@ public class MemberReceiveAddressController {
         return R.ok().put("page", page);
     }
 
-
     /**
      * 信息
      */
@@ -60,7 +59,6 @@ public class MemberReceiveAddressController {
     //@RequiresPermissions("member:memberreceiveaddress:save")
     public R save(@RequestBody MemberReceiveAddressEntity memberReceiveAddress){
 		memberReceiveAddressService.save(memberReceiveAddress);
-
         return R.ok();
     }
 
@@ -71,7 +69,6 @@ public class MemberReceiveAddressController {
     //@RequiresPermissions("member:memberreceiveaddress:update")
     public R update(@RequestBody MemberReceiveAddressEntity memberReceiveAddress){
 		memberReceiveAddressService.updateById(memberReceiveAddress);
-
         return R.ok();
     }
 
@@ -82,7 +79,6 @@ public class MemberReceiveAddressController {
     //@RequiresPermissions("member:memberreceiveaddress:delete")
     public R delete(@RequestBody Long[] ids){
 		memberReceiveAddressService.removeByIds(Arrays.asList(ids));
-
         return R.ok();
     }
 

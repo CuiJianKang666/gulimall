@@ -85,5 +85,4 @@ public class MemberLoginLogController {
 
         return R.ok();
     }
-
 }
