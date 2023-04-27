@@ -1,4 +1,4 @@
-package com.atguigu.gulimall.search.config;
+package com.atguigu.gulimall.product.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,7 +15,6 @@ public class GulimallSessionConfig {
     public CookieSerializer cookieSerializer() {
 
         DefaultCookieSerializer cookieSerializer = new DefaultCookieSerializer();
-
         //放大作用域
         cookieSerializer.setDomainName("gulimall.com");
         cookieSerializer.setCookieName("GULISESSION");

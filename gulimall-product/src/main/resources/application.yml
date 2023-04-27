@@ -18,6 +18,8 @@ spring:
 
   mvc:
     static-path-pattern: /static/**
+  session:
+    store-type: redis
 
 
 mybatis-plus:

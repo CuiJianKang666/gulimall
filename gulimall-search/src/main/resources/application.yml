@@ -18,6 +18,9 @@ spring:
     host: 192.168.13.130
     port: 6379
 
+  session:
+    store-type: redis
+
 #开启feign对sentinel的支持
 #feign:
 #  sentinel:

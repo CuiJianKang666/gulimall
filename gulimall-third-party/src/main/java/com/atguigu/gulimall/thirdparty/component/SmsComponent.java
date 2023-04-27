@@ -1,6 +1,6 @@
 package com.atguigu.gulimall.thirdparty.component;
 
-import com.xunqi.common.utils.HttpUtils;
+import com.atguigu.common.utils.HttpUtils;
 import lombok.Data;
 import org.apache.http.HttpResponse;
 import org.apache.http.util.EntityUtils;

@@ -64,7 +64,6 @@ public class LoginController {
                 return R.error(BizCodeEnum.SMS_CODE_EXCEPTION.getCode(),BizCodeEnum.SMS_CODE_EXCEPTION.getMessage());
             }
         }
-
         //2、验证码的再次效验 redis.存key-phone,value-code
         int code = (int) ((Math.random() * 9 + 1) * 100000);
         String codeNum = String.valueOf(code);
@@ -139,10 +138,8 @@ public class LoginController {
         }
     }
 
-
     @GetMapping(value = "/login.html")
     public String loginPage(HttpSession session) {
-
         //从session先取出来用户的信息，判断用户是否已经登录过了
         Object attribute = session.getAttribute(LOGIN_USER);
         //如果用户没登录那就跳转到登录页面
@@ -153,12 +150,10 @@ public class LoginController {
         }
     }
 
-
     @PostMapping(value = "/login")
     public String login(UserLoginVo vo, RedirectAttributes attributes, HttpSession session) {
         //远程登录
         R login = memberFeignService.login(vo);
-
         if (login.getCode() == 0) {
             MemberResponseVo data = login.getData("data", new TypeReference<MemberResponseVo>() {});
             session.setAttribute(LOGIN_USER,data);
