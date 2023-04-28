@@ -53,7 +53,6 @@ public class SearchResult {
 
     @Data
     public static class BrandVo {
-
         private Long brandId;
 
         private String brandName;
