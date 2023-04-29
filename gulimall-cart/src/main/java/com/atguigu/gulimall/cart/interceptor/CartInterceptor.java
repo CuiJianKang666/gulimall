@@ -16,16 +16,9 @@ import static com.atguigu.common.constant.AuthServerConstant.LOGIN_USER;
 import static com.atguigu.common.constant.CartConstant.TEMP_USER_COOKIE_NAME;
 import static com.atguigu.common.constant.CartConstant.TEMP_USER_COOKIE_TIMEOUT;
 
-/**
- * @Description: 在执行目标方法之前，判断用户的登录状态.并封装传递给controller目标请求
- * @Created: with IntelliJ IDEA.
- * @author: 夏沫止水
- * @createTime: 2020-06-30 17:31
- **/
+
 
 public class CartInterceptor implements HandlerInterceptor {
-
-
     public static ThreadLocal<UserInfoTo> toThreadLocal = new ThreadLocal<>();
 
     /***
@@ -51,7 +44,7 @@ public class CartInterceptor implements HandlerInterceptor {
         }
 
         Cookie[] cookies = request.getCookies();
-        if (cookies != null && cookies.length > 0) {
+        if (cookies != null) {
             for (Cookie cookie : cookies) {
                 //user-key
                 String name = cookie.getName();
@@ -62,13 +55,11 @@ public class CartInterceptor implements HandlerInterceptor {
                 }
             }
         }
-
         //如果没有临时用户一定分配一个临时用户
         if (StringUtils.isEmpty(userInfoTo.getUserKey())) {
             String uuid = UUID.randomUUID().toString();
             userInfoTo.setUserKey(uuid);
         }
-
         //目标方法执行之前
         toThreadLocal.set(userInfoTo);
         return true;
@@ -85,7 +76,6 @@ public class CartInterceptor implements HandlerInterceptor {
      */
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
-
         //获取当前用户的值
         UserInfoTo userInfoTo = toThreadLocal.get();
 
@@ -99,7 +89,6 @@ public class CartInterceptor implements HandlerInterceptor {
             cookie.setMaxAge(TEMP_USER_COOKIE_TIMEOUT);
             response.addCookie(cookie);
         }
-
     }
 
     @Override
