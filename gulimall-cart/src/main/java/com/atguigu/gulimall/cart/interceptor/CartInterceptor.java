@@ -78,7 +78,6 @@ public class CartInterceptor implements HandlerInterceptor {
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
         //获取当前用户的值
         UserInfoTo userInfoTo = toThreadLocal.get();
-
         //如果没有临时用户一定保存一个临时用户
         if (!userInfoTo.getTempUser()) {
             //创建一个cookie

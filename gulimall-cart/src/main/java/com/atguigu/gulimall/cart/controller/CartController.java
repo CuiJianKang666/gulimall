@@ -67,13 +67,11 @@ public class CartController {
     public String addCartItem(@RequestParam("skuId") Long skuId,
                               @RequestParam("num") Integer num,
                               RedirectAttributes attributes) throws ExecutionException, InterruptedException {
-
         cartService.addToCart(skuId,num);
 
         attributes.addAttribute("skuId",skuId);
         return "redirect:http://cart.gulimall.com/addToCartSuccessPage.html";
     }
-
 
     /**
      * 跳转到添加购物车成功页面
@@ -90,7 +88,6 @@ public class CartController {
         return "success";
     }
 
-
     /**
      * 商品是否选中
      * @param skuId
@@ -104,9 +101,7 @@ public class CartController {
         cartService.checkItem(skuId,checked);
 
         return "redirect:http://cart.gulimall.com/cart.html";
-
     }
-
 
     /**
      * 改变商品数量
@@ -122,7 +117,6 @@ public class CartController {
 
         return "redirect:http://cart.gulimall.com/cart.html";
     }
-
 
     /**
      * 删除商品信息
