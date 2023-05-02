@@ -41,7 +41,6 @@ public class OrderController {
         return R.ok().put("page", page);
     }
 
-
     /**
      * 信息
      */
@@ -82,8 +81,6 @@ public class OrderController {
     //@RequiresPermissions("order:order:delete")
     public R delete(@RequestBody Long[] ids){
 		orderService.removeByIds(Arrays.asList(ids));
-
         return R.ok();
     }
-
 }

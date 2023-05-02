@@ -16,7 +16,6 @@ import com.atguigu.common.utils.PageUtils;
 import com.atguigu.common.utils.R;
 
 
-
 /**
  * 会员统计信息
  *
@@ -40,7 +39,6 @@ public class MemberStatisticsInfoController {
 
         return R.ok().put("page", page);
     }
-
 
     /**
      * 信息
@@ -85,5 +83,4 @@ public class MemberStatisticsInfoController {
 
         return R.ok();
     }
-
 }
