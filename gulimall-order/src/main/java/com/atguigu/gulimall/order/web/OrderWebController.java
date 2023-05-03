@@ -43,10 +43,8 @@ public class OrderWebController {
 
         model.addAttribute("confirmOrderData",confirmVo);
         //展示订单确认的数据
-
         return "confirm";
     }
-
 
     /**
      * 下单功能

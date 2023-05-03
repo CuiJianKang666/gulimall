@@ -166,7 +166,6 @@ public class OrderServiceImpl extends ServiceImpl<OrderDao, OrderEntity> impleme
         redisTemplate.opsForValue().set(OrderConstant.USER_ORDER_TOKEN_PREFIX+memberResponseVo.getId(),token,30, TimeUnit.MINUTES);
         confirmVo.setOrderToken(token);
 
-
         CompletableFuture.allOf(addressFuture,cartInfoFuture).get();
 
         return confirmVo;
@@ -199,9 +198,8 @@ public class OrderServiceImpl extends ServiceImpl<OrderDao, OrderEntity> impleme
 
         //通过lure脚本原子验证令牌和删除令牌
         Long result = redisTemplate.execute(new DefaultRedisScript<Long>(script, Long.class),
-                Arrays.asList(OrderConstant.USER_ORDER_TOKEN_PREFIX + memberResponseVo.getId()),
+                Collections.singletonList(OrderConstant.USER_ORDER_TOKEN_PREFIX + memberResponseVo.getId()),
                 orderToken);
-
         if (result == 0L) {
             //令牌验证失败
             responseVo.setCode(1);
@@ -226,13 +224,14 @@ public class OrderServiceImpl extends ServiceImpl<OrderDao, OrderEntity> impleme
                 lockVo.setOrderSn(order.getOrder().getOrderSn());
 
                 //获取出要锁定的商品数据信息
-                List<OrderItemVo> orderItemVos = order.getOrderItems().stream().map((item) -> {
+                List<OrderItemVo> orderItemVos = order.getOrderItems().stream().map(item -> {
                     OrderItemVo orderItemVo = new OrderItemVo();
                     orderItemVo.setSkuId(item.getSkuId());
                     orderItemVo.setCount(item.getSkuQuantity());
                     orderItemVo.setTitle(item.getSkuName());
                     return orderItemVo;
                 }).collect(Collectors.toList());
+
                 lockVo.setLocks(orderItemVos);
 
                 //TODO 调用远程锁定库存的方法
@@ -257,7 +256,6 @@ public class OrderServiceImpl extends ServiceImpl<OrderDao, OrderEntity> impleme
                     // responseVo.setCode(3);
                     // return responseVo;
                 }
-
             } else {
                 responseVo.setCode(2);
                 return responseVo;
@@ -308,7 +306,6 @@ public class OrderServiceImpl extends ServiceImpl<OrderDao, OrderEntity> impleme
             }
         }
     }
-
 
     /**
      * 获取当前订单的支付信息
@@ -372,7 +369,6 @@ public class OrderServiceImpl extends ServiceImpl<OrderDao, OrderEntity> impleme
      * @param orderCreateTo
      */
     private void saveOrder(OrderCreateTo orderCreateTo) {
-
         //获取订单信息
         OrderEntity order = orderCreateTo.getOrder();
         order.setModifyTime(new Date());
@@ -385,7 +381,6 @@ public class OrderServiceImpl extends ServiceImpl<OrderDao, OrderEntity> impleme
         //批量保存订单项数据
         orderItemService.saveBatch(orderItems);
     }
-
 
     private OrderCreateTo createOrder() {
 
@@ -438,7 +433,6 @@ public class OrderServiceImpl extends ServiceImpl<OrderDao, OrderEntity> impleme
             //积分信息和成长值信息
             integrationTotal += orderItem.getGiftIntegration();
             growthTotal += orderItem.getGiftGrowth();
-
         }
         //1、订单价格相关的
         orderEntity.setTotalAmount(total);
@@ -454,9 +448,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderDao, OrderEntity> impleme
 
         //设置删除状态(0-未删除，1-已删除)
         orderEntity.setDeleteStatus(0);
-
     }
-
 
     /**
      * 构建订单数据
@@ -464,7 +456,6 @@ public class OrderServiceImpl extends ServiceImpl<OrderDao, OrderEntity> impleme
      * @return
      */
     private OrderEntity builderOrder(String orderSn) {
-
         //获取当前用户登录信息
         MemberResponseVo memberResponseVo = LoginUserInterceptor.loginUser.get();
 
@@ -516,11 +507,9 @@ public class OrderServiceImpl extends ServiceImpl<OrderDao, OrderEntity> impleme
                 //构建订单项数据
                 OrderItemEntity orderItemEntity = builderOrderItem(items);
                 orderItemEntity.setOrderSn(orderSn);
-
                 return orderItemEntity;
             }).collect(Collectors.toList());
         }
-
         return orderItemEntityList;
     }
 
@@ -530,7 +519,6 @@ public class OrderServiceImpl extends ServiceImpl<OrderDao, OrderEntity> impleme
      * @return
      */
     private OrderItemEntity builderOrderItem(OrderItemVo items) {
-
         OrderItemEntity orderItemEntity = new OrderItemEntity();
 
         //1、商品的spu信息
@@ -670,7 +658,6 @@ public class OrderServiceImpl extends ServiceImpl<OrderDao, OrderEntity> impleme
                 "</xml>";
     }
 
-
     /**
      * 创建秒杀单
      * @param orderTo
@@ -710,10 +697,8 @@ public class OrderServiceImpl extends ServiceImpl<OrderDao, OrderEntity> impleme
         orderItemService.save(orderItem);
     }
 
-
     public static void main(String[] args) {
         String orderSn = IdWorker.getTimeId().substring(0,16);
         System.out.println(orderSn);
     }
-
 }

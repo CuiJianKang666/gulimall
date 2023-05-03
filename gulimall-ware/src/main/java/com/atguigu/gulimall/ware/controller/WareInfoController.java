@@ -93,5 +93,4 @@ public class WareInfoController {
 
         return R.ok();
     }
-
 }

@@ -9,16 +9,9 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 
-/**
- * @Description: feign拦截器功能
- * @Created: with IntelliJ IDEA.
- * @author: 夏沫止水
- * @createTime: 2020-07-02 21:10
- **/
 
 @Configuration
 public class GuliFeignConfig {
-
     @Bean("requestInterceptor")
     public RequestInterceptor requestInterceptor() {
         RequestInterceptor requestInterceptor = template -> {
