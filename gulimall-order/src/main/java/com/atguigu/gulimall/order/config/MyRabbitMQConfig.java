@@ -19,14 +19,12 @@ import java.util.HashMap;
 
 @Configuration
 public class MyRabbitMQConfig {
-
     /* 容器中的Queue、Exchange、Binding 会自动创建（在RabbitMQ）不存在的情况下 */
-
     /**
      * 死信队列
-     *
      * @return
-     */@Bean
+     */
+    @Bean
     public Queue orderDelayQueue() {
         /*
             Queue(String name,  队列名字
@@ -40,7 +38,6 @@ public class MyRabbitMQConfig {
         arguments.put("x-dead-letter-routing-key", "order.release.order");
         arguments.put("x-message-ttl", 60000); // 消息过期时间 1分钟
         Queue queue = new Queue("order.delay.queue", true, false, false, arguments);
-
         return queue;
     }
 
@@ -51,9 +48,7 @@ public class MyRabbitMQConfig {
      */
     @Bean
     public Queue orderReleaseQueue() {
-
         Queue queue = new Queue("order.release.order.queue", true, false, false);
-
         return queue;
     }
 
@@ -71,7 +66,6 @@ public class MyRabbitMQConfig {
          *   Map<String, Object> arguments
          * */
         return new TopicExchange("order-event-exchange", true, false);
-
     }
 
 
@@ -107,38 +101,30 @@ public class MyRabbitMQConfig {
      */
     @Bean
     public Binding orderReleaseOtherBinding() {
-
         return new Binding("stock.release.stock.queue",
                 Binding.DestinationType.QUEUE,
                 "order-event-exchange",
                 "order.release.other.#",
                 null);
     }
-
-
     /**
      * 商品秒杀队列
      * @return
      */
     @Bean
     public Queue orderSecKillOrrderQueue() {
-        Queue queue = new Queue("order.seckill.order.queue", true, false, false);
-        return queue;
+        return new Queue("order.seckill.order.queue", true, false, false);
     }
 
     @Bean
     public Binding orderSecKillOrrderQueueBinding() {
         //String destination, DestinationType destinationType, String exchange, String routingKey,
         // 			Map<String, Object> arguments
-        Binding binding = new Binding(
+        return new Binding(
                 "order.seckill.order.queue",
                 Binding.DestinationType.QUEUE,
                 "order-event-exchange",
                 "order.seckill.order",
                 null);
-
-        return binding;
     }
-
-
 }

@@ -45,18 +45,14 @@ public class WareSkuServiceImpl extends ServiceImpl<WareSkuDao, WareSkuEntity> i
 
     @Autowired
     WareSkuDao wareSkuDao;
-
     @Autowired
     ProductFeignService productFeignService;
     @Autowired
     private RabbitTemplate rabbitTemplate;
-
     @Autowired
     private WareOrderTaskService wareOrderTaskService;
-
     @Autowired
     private WareOrderTaskDetailService wareOrderTaskDetailService;
-
     @Autowired
     private OrderFeignService orderFeignService;
 
