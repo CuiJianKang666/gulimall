@@ -16,13 +16,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-
 @RestController
 public class OrderPayedListener {
-
     @Autowired
     private OrderService orderService;
-
     @Autowired
     private AlipayTemplate alipayTemplate;
 

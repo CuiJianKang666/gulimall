@@ -35,7 +35,6 @@ public class MySeataConfig {
         if (StringUtils.hasText(dataSourceProperties.getName())) {
             dataSource.setPoolName(dataSourceProperties.getName());
         }
-
         return new DataSourceProxy(dataSource);
     }
 }

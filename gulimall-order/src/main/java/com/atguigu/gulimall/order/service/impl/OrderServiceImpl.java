@@ -273,9 +273,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderDao, OrderEntity> impleme
     @Override
     public OrderEntity getOrderByOrderSn(String orderSn) {
 
-        OrderEntity orderEntity = this.baseMapper.selectOne(new QueryWrapper<OrderEntity>().eq("order_sn", orderSn));
-
-        return orderEntity;
+        return this.baseMapper.selectOne(new QueryWrapper<OrderEntity>().eq("order_sn", orderSn));
     }
 
     /**
@@ -284,22 +282,18 @@ public class OrderServiceImpl extends ServiceImpl<OrderDao, OrderEntity> impleme
      */
     @Override
     public void closeOrder(OrderEntity orderEntity) {
-
         //关闭订单之前先查询一下数据库，判断此订单状态是否已支付
         OrderEntity orderInfo = this.getOne(new QueryWrapper<OrderEntity>().
                 eq("order_sn",orderEntity.getOrderSn()));
-
         if (orderInfo.getStatus().equals(OrderStatusEnum.CREATE_NEW.getCode())) {
             //代付款状态进行关单
             OrderEntity orderUpdate = new OrderEntity();
             orderUpdate.setId(orderInfo.getId());
             orderUpdate.setStatus(OrderStatusEnum.CANCLED.getCode());
             this.updateById(orderUpdate);
-
             // 发送消息给MQ
             OrderTo orderTo = new OrderTo();
             BeanUtils.copyProperties(orderInfo, orderTo);
-
             try {
                 //TODO 确保每个消息发送成功，给每个消息做好日志记录，(给数据库保存每一个详细信息)保存每个消息的详细信息
                 rabbitTemplate.convertAndSend("order-event-exchange", "order.release.other", orderTo);
@@ -330,9 +324,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderDao, OrderEntity> impleme
                 new QueryWrapper<OrderItemEntity>().eq("order_sn", orderSn));
         OrderItemEntity orderItemEntity = orderItemInfo.get(0);
         payVo.setBody(orderItemEntity.getSkuAttrsVals());
-
         payVo.setSubject(orderItemEntity.getSkuName());
-
         return payVo;
     }
 
@@ -343,7 +335,6 @@ public class OrderServiceImpl extends ServiceImpl<OrderDao, OrderEntity> impleme
      */
     @Override
     public PageUtils queryPageWithItem(Map<String, Object> params) {
-
         MemberResponseVo memberResponseVo = LoginUserInterceptor.loginUser.get();
 
         IPage<OrderEntity> page = this.page(
@@ -351,7 +342,6 @@ public class OrderServiceImpl extends ServiceImpl<OrderDao, OrderEntity> impleme
                 new QueryWrapper<OrderEntity>()
                         .eq("member_id",memberResponseVo.getId()).orderByDesc("create_time")
         );
-
         //遍历所有订单集合
         List<OrderEntity> orderEntityList = page.getRecords().stream().map(order -> {
             //根据订单号查询订单项里的数据
@@ -362,7 +352,6 @@ public class OrderServiceImpl extends ServiceImpl<OrderDao, OrderEntity> impleme
         }).collect(Collectors.toList());
 
         page.setRecords(orderEntityList);
-
         return new PageUtils(page);
     }
 
@@ -577,7 +566,6 @@ public class OrderServiceImpl extends ServiceImpl<OrderDao, OrderEntity> impleme
     @Transactional(rollbackFor = Exception.class)
     @Override
     public String handlePayResult(PayAsyncVo asyncVo) {
-
         //保存交易流水信息
         PaymentInfoEntity paymentInfo = new PaymentInfoEntity();
         paymentInfo.setOrderSn(asyncVo.getOut_trade_no());

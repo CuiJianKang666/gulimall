@@ -10,13 +10,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
-/**
- * 订单
- *
- * @author 夏沫止水
- * @email HeJieLin@gulimall.com
- * @date 2020-05-22 19:49:53
- */
+
 @Data
 @TableName("oms_order")
 public class OrderEntity implements Serializable {

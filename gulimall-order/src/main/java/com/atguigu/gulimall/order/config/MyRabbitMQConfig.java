@@ -68,7 +68,6 @@ public class MyRabbitMQConfig {
         return new TopicExchange("order-event-exchange", true, false);
     }
 
-
     @Bean
     public Binding orderCreateBinding() {
         /*

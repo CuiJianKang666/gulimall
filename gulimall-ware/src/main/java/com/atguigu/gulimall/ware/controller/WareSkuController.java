@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.atguigu.common.exception.NoStockException;
-import com.atguigu.common.to.SkuHasStockVo;
+import com.atguigu.gulimall.ware.vo.SkuHasStockVo;
 import com.atguigu.gulimall.ware.vo.WareSkuLockVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -57,9 +57,7 @@ public class WareSkuController {
 
         //skuId stock
         List<SkuHasStockVo> vos = wareSkuService.getSkuHasStock(skuIds);
-
         return R.ok().setData(vos);
-
     }
 
     /**
