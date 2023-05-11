@@ -23,7 +23,6 @@ import java.util.List;
 @Controller
 public class SeckillController {
 
-
     @Autowired
     private SeckillService seckillService;
 

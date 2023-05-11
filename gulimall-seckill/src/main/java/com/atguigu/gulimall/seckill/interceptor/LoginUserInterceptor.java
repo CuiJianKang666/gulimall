@@ -24,14 +24,12 @@ import static com.atguigu.common.constant.AuthServerConstant.LOGIN_USER;
 public class LoginUserInterceptor implements HandlerInterceptor {
 
     public static ThreadLocal<MemberResponseVo> loginUser = new ThreadLocal<>();
-
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
         String uri = request.getRequestURI();
         AntPathMatcher antPathMatcher = new AntPathMatcher();
         boolean match = antPathMatcher.match("/kill", uri);
-
         if (match) {
             HttpSession session = request.getSession();
             //获取登录的用户信息

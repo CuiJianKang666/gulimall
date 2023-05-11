@@ -83,7 +83,6 @@ public class SeckillServiceImpl implements SeckillService {
             //2、缓存活动的关联商品信息
             saveSessionSkuInfo(sessionData);
         }
-
     }
 
     /**
@@ -92,8 +91,7 @@ public class SeckillServiceImpl implements SeckillService {
      */
     private void saveSessionInfos(List<SeckillSessionWithSkusVo> sessions) {
 
-        sessions.stream().forEach(session -> {
-
+        sessions.forEach(session -> {
             //获取当前活动的开始和结束时间的时间戳
             long startTime = session.getStartTime().getTime();
             long endTime = session.getEndTime().getTime();
@@ -111,7 +109,6 @@ public class SeckillServiceImpl implements SeckillService {
                 redisTemplate.opsForList().leftPushAll(key,skuIds);
             }
         });
-
     }
 
     /**
@@ -119,8 +116,7 @@ public class SeckillServiceImpl implements SeckillService {
      * @param sessions
      */
     private void saveSessionSkuInfo(List<SeckillSessionWithSkusVo> sessions) {
-
-        sessions.stream().forEach(session -> {
+        sessions.forEach(session -> {
             //准备hash操作，绑定hash
             BoundHashOperations<String, Object, Object> operations = redisTemplate.boundHashOps(SECKILL_CHARE_PREFIX);
             session.getRelationSkus().stream().forEach(seckillSkuVo -> {
@@ -128,7 +124,6 @@ public class SeckillServiceImpl implements SeckillService {
                 String token = UUID.randomUUID().toString().replace("-", "");
                 String redisKey = seckillSkuVo.getPromotionSessionId().toString() + "-" + seckillSkuVo.getSkuId().toString();
                 if (!operations.hasKey(redisKey)) {
-
                     //缓存我们商品信息
                     SeckillSkuRedisTo redisTo = new SeckillSkuRedisTo();
                     Long skuId = seckillSkuVo.getSkuId();
@@ -152,7 +147,6 @@ public class SeckillServiceImpl implements SeckillService {
                     //序列化json格式存入Redis中
                     String seckillValue = JSON.toJSONString(redisTo);
                     operations.put(seckillSkuVo.getPromotionSessionId().toString() + "-" + seckillSkuVo.getSkuId().toString(),seckillValue);
-
                     //如果当前这个场次的商品库存信息已经上架就不需要上架
                     //5、使用库存作为分布式Redisson信号量（限流）
                     // 使用库存作为分布式信号量
@@ -195,8 +189,7 @@ public class SeckillServiceImpl implements SeckillService {
                     BoundHashOperations<String, String, String> hasOps = redisTemplate.boundHashOps(SECKILL_CHARE_PREFIX);
                     assert range != null;
                     List<String> listValue = hasOps.multiGet(range);
-                    if (listValue != null && listValue.size() >= 0) {
-
+                    if (listValue != null) {
                         List<SeckillSkuRedisTo> collect = listValue.stream().map(item -> {
                             String items = (String) item;
                             SeckillSkuRedisTo redisTo = JSON.parseObject(items, SeckillSkuRedisTo.class);
@@ -211,12 +204,10 @@ public class SeckillServiceImpl implements SeckillService {
         } catch (BlockException e) {
             log.error("资源被限流{}",e.getMessage());
         }
-
         return null;
     }
 
     public List<SeckillSkuRedisTo> blockHandler(BlockException e) {
-
         log.error("getCurrentSeckillSkusResource被限流了,{}",e.getMessage());
         return null;
     }
