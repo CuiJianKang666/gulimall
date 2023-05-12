@@ -267,7 +267,7 @@ public class SeckillServiceImpl implements SeckillService {
         //获取当前用户的信息
         MemberResponseVo user = LoginUserInterceptor.loginUser.get();
 
-        //1、获取当前秒杀商品的详细信息从Redis中获取
+        //1、从Redis中获取当前秒杀商品的详细信息
         BoundHashOperations<String, String, String> hashOps = redisTemplate.boundHashOps(SECKILL_CHARE_PREFIX);
         String skuInfoValue = hashOps.get(killId);
         if (StringUtils.isEmpty(skuInfoValue)) {
@@ -280,7 +280,6 @@ public class SeckillServiceImpl implements SeckillService {
         long currentTime = System.currentTimeMillis();
         //判断当前这个秒杀请求是否在活动时间区间内(效验时间的合法性)
         if (currentTime >= startTime && currentTime <= endTime) {
-
             //2、效验随机码和商品id
             String randomCode = redisTo.getRandomCode();
             String skuId = redisTo.getPromotionSessionId() + "-" +redisTo.getSkuId();

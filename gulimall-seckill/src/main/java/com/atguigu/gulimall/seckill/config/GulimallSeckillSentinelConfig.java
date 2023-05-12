@@ -21,9 +21,7 @@ import java.io.IOException;
 
 @Configuration
 public class GulimallSeckillSentinelConfig {
-
     public GulimallSeckillSentinelConfig() {
-
         WebCallbackManager.setUrlBlockHandler(new UrlBlockHandler() {
             @Override
             public void blocked(HttpServletRequest request, HttpServletResponse response, BlockException ex) throws IOException {
@@ -31,10 +29,7 @@ public class GulimallSeckillSentinelConfig {
                 response.setCharacterEncoding("UTF-8");
                 response.setContentType("application/json");
                 response.getWriter().write(JSON.toJSONString(error));
-
             }
         });
-
     }
-
 }

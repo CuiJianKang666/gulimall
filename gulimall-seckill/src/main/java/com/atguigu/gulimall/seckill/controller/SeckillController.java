@@ -36,7 +36,6 @@ public class SeckillController {
 
         //获取到当前可以参加秒杀商品的信息
         List<SeckillSkuRedisTo> vos = seckillService.getCurrentSeckillSkus();
-
         return R.ok().setData(vos);
     }
 
@@ -68,7 +67,6 @@ public class SeckillController {
                           @RequestParam("key") String key,
                           @RequestParam("num") Integer num,
                           Model model) {
-
         String orderSn = null;
         try {
             //1、判断是否登录
@@ -79,5 +77,4 @@ public class SeckillController {
         }
         return "success";
     }
-
 }
