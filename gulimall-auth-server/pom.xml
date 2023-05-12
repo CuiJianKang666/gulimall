@@ -20,7 +20,6 @@
     </properties>
 
     <dependencies>
-
         <!--httpclient-->
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
